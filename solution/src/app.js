@@ -17,7 +17,7 @@
 import { GoogleMapsOverlay } from '@deck.gl/google-maps';
 import { ScatterplotLayer } from '@deck.gl/layers';
 
-const googleMapsAPIKey = 'YOUR API KEY';
+const googleMapsAPIKey = 'AIzaSyAqtfB2-Xq_nmc24MtAPESevjDX84cql0s';
 
 loadJSAPI();
 function runApp() {
@@ -26,7 +26,7 @@ function runApp() {
     id: 'scatterplot',
     data: './stations.json',
     getPosition: d => [parseFloat(d.longitude), parseFloat(d.latitude)],
-    getRadius: d => parseInt(d.capacity),
+    //getRadius: d => parseInt(d.capacity),
     stroked: true,
     getFillColor: [255, 133, 27],
     getLineColor: [255, 38, 27],
@@ -34,6 +34,27 @@ function runApp() {
     radiusMaxPixels: 50
   };
   const scatterplotLayer = new ScatterplotLayer(layerOptions);
+  const data_uri = {
+    trees: 'https://data.cityofnewyork.us/resource/5rq2-4hqu.json'
+  };
+  const qs = {
+    trees: '?$limit=65000&&boroname=Manhattan'
+  };
+  const scatterplotLayerTree = new ScatterplotLayer({
+    id: 'scatterplot-tree-layer',
+    data: data_uri.trees + qs.trees,
+    getPosition: d => d.the_geom.coordinates,
+    getFillColor: d => [51, 255, 60],
+    getLineColor: d => [0, 0, 0],
+    opacity: 0.8,
+    stroked: true,
+    filled: true,
+    radiusScale: 6,
+    radiusMinPixels: 1,
+    radiusMaxPixels: 100,
+    lineWidthMinPixels: 1
+  })
+
   const googleMapsOverlay = new GoogleMapsOverlay({
     layers: [scatterplotLayer]
   });
