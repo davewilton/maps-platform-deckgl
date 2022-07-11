@@ -16,8 +16,9 @@
 
 import { GoogleMapsOverlay } from '@deck.gl/google-maps';
 import { ScatterplotLayer, ScatterplotLayerProps } from "@deck.gl/layers";
+import { apiKey } from './secret';
 
-const googleMapsAPIKey = 'AIzaSyAqtfB2-Xq_nmc24MtAPESevjDX84cql0s';
+const googleMapsAPIKey = apiKey;
 
 loadJSAPI(); // loads the Maps JS API - see helper function below
 
